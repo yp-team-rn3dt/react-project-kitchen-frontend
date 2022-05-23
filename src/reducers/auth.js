@@ -5,7 +5,7 @@ import {
   REGISTER_PAGE_UNLOADED,
   ASYNC_START,
   UPDATE_FIELD_AUTH,
-} from "../constants/actionTypes";
+} from '../constants/actionTypes';
 
 export default (state = {}, action) => {
   switch (action.type) {

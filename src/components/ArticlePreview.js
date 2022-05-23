@@ -1,14 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import agent from "../agent";
-import { connect } from "react-redux";
-import {
-  ARTICLE_FAVORITED,
-  ARTICLE_UNFAVORITED,
-} from "../constants/actionTypes";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import agent from '../agent';
+import { connect } from 'react-redux';
+import { ARTICLE_FAVORITED, ARTICLE_UNFAVORITED } from '../constants/actionTypes';
 
-const FAVORITED_CLASS = "btn btn-sm btn-primary";
-const NOT_FAVORITED_CLASS = "btn btn-sm btn-outline-primary";
+const FAVORITED_CLASS = 'btn btn-sm btn-primary';
+const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
 
 const mapDispatchToProps = (dispatch) => ({
   favorite: (slug) =>
@@ -25,9 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const ArticlePreview = (props) => {
   const article = props.article;
-  const favoriteButtonClass = article.favorited
-    ? FAVORITED_CLASS
-    : NOT_FAVORITED_CLASS;
+  const favoriteButtonClass = article.favorited ? FAVORITED_CLASS : NOT_FAVORITED_CLASS;
 
   const handleClick = (ev) => {
     ev.preventDefault();
@@ -49,9 +44,7 @@ const ArticlePreview = (props) => {
           <Link className="author" to={`/@${article.author.username}`}>
             {article.author.username}
           </Link>
-          <span className="date">
-            {new Date(article.createdAt).toDateString()}
-          </span>
+          <span className="date">{new Date(article.createdAt).toDateString()}</span>
         </div>
 
         <div className="pull-xs-right">

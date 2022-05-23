@@ -1,19 +1,19 @@
-import agent from "../agent";
-import Header from "./Header";
-import React from "react";
-import { connect } from "react-redux";
-import { APP_LOAD, REDIRECT } from "../constants/actionTypes";
-import { Route, Switch } from "react-router-dom";
-import Article from "../components/Article";
-import Editor from "../components/Editor";
-import Home from "../components/Home";
-import Login from "../components/Login";
-import Profile from "../components/Profile";
-import ProfileFavorites from "../components/ProfileFavorites";
-import Register from "../components/Register";
-import Settings from "../components/Settings";
-import { store } from "../store";
-import { push } from "connected-react-router";
+import agent from '../agent';
+import Header from './Header';
+import React from 'react';
+import { connect } from 'react-redux';
+import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
+import { Route, Switch } from 'react-router-dom';
+import Article from '../components/Article';
+import Editor from '../components/Editor';
+import Home from '../components/Home';
+import Login from '../components/Login';
+import Profile from '../components/Profile';
+import ProfileFavorites from '../components/ProfileFavorites';
+import Register from '../components/Register';
+import Settings from '../components/Settings';
+import { store } from '../store';
+import { push } from 'connected-react-router';
 
 const mapStateToProps = (state) => {
   return {
@@ -25,8 +25,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoad: (payload, token) =>
-    dispatch({ type: APP_LOAD, payload, token, skipTracking: true }),
+  onLoad: (payload, token) => dispatch({ type: APP_LOAD, payload, token, skipTracking: true }),
   onRedirect: () => dispatch({ type: REDIRECT }),
 });
 
@@ -40,7 +39,7 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    const token = window.localStorage.getItem("jwt");
+    const token = window.localStorage.getItem('jwt');
     if (token) {
       agent.setToken(token);
     }
@@ -52,10 +51,7 @@ class App extends React.Component {
     if (this.props.appLoaded) {
       return (
         <div>
-          <Header
-            appName={this.props.appName}
-            currentUser={this.props.currentUser}
-          />
+          <Header appName={this.props.appName} currentUser={this.props.currentUser} />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
@@ -72,10 +68,7 @@ class App extends React.Component {
     }
     return (
       <div>
-        <Header
-          appName={this.props.appName}
-          currentUser={this.props.currentUser}
-        />
+        <Header appName={this.props.appName} currentUser={this.props.currentUser} />
       </div>
     );
   }

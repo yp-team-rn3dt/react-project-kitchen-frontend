@@ -1,7 +1,7 @@
-import ListErrors from "./ListErrors";
-import React from "react";
-import agent from "../agent";
-import { connect } from "react-redux";
+import ListErrors from './ListErrors';
+import React from 'react';
+import agent from '../agent';
+import { connect } from 'react-redux';
 import {
   ADD_TAG,
   EDITOR_PAGE_LOADED,
@@ -9,7 +9,7 @@ import {
   ARTICLE_SUBMITTED,
   EDITOR_PAGE_UNLOADED,
   UPDATE_FIELD_EDITOR,
-} from "../constants/actionTypes";
+} from '../constants/actionTypes';
 
 const mapStateToProps = (state) => ({
   ...state.editor,
@@ -21,20 +21,18 @@ const mapDispatchToProps = (dispatch) => ({
   onRemoveTag: (tag) => dispatch({ type: REMOVE_TAG, tag }),
   onSubmit: (payload) => dispatch({ type: ARTICLE_SUBMITTED, payload }),
   onUnload: (payload) => dispatch({ type: EDITOR_PAGE_UNLOADED }),
-  onUpdateField: (key, value) =>
-    dispatch({ type: UPDATE_FIELD_EDITOR, key, value }),
+  onUpdateField: (key, value) => dispatch({ type: UPDATE_FIELD_EDITOR, key, value }),
 });
 
 class Editor extends React.Component {
   constructor() {
     super();
 
-    const updateFieldEvent = (key) => (ev) =>
-      this.props.onUpdateField(key, ev.target.value);
-    this.changeTitle = updateFieldEvent("title");
-    this.changeDescription = updateFieldEvent("description");
-    this.changeBody = updateFieldEvent("body");
-    this.changeTagInput = updateFieldEvent("tagInput");
+    const updateFieldEvent = (key) => (ev) => this.props.onUpdateField(key, ev.target.value);
+    this.changeTitle = updateFieldEvent('title');
+    this.changeDescription = updateFieldEvent('description');
+    this.changeBody = updateFieldEvent('body');
+    this.changeTagInput = updateFieldEvent('tagInput');
 
     this.watchForEnter = (ev) => {
       if (ev.keyCode === 13) {
@@ -69,9 +67,7 @@ class Editor extends React.Component {
     if (this.props.match.params.slug !== nextProps.match.params.slug) {
       if (nextProps.match.params.slug) {
         this.props.onUnload();
-        return this.props.onLoad(
-          agent.Articles.get(this.props.match.params.slug)
-        );
+        return this.props.onLoad(agent.Articles.get(this.props.match.params.slug));
       }
       this.props.onLoad(null);
     }
@@ -79,9 +75,7 @@ class Editor extends React.Component {
 
   componentWillMount() {
     if (this.props.match.params.slug) {
-      return this.props.onLoad(
-        agent.Articles.get(this.props.match.params.slug)
-      );
+      return this.props.onLoad(agent.Articles.get(this.props.match.params.slug));
     }
     this.props.onLoad(null);
   }
@@ -144,10 +138,7 @@ class Editor extends React.Component {
                       {(this.props.tagList || []).map((tag) => {
                         return (
                           <span className="tag-default tag-pill" key={tag}>
-                            <i
-                              className="ion-close-round"
-                              onClick={this.removeTagHandler(tag)}
-                            ></i>
+                            <i className="ion-close-round" onClick={this.removeTagHandler(tag)}></i>
                             {tag}
                           </span>
                         );

@@ -3,7 +3,7 @@ import {
   ARTICLE_PAGE_UNLOADED,
   ADD_COMMENT,
   DELETE_COMMENT,
-} from "../constants/actionTypes";
+} from '../constants/actionTypes';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -19,9 +19,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         commentErrors: action.error ? action.payload.errors : null,
-        comments: action.error
-          ? null
-          : (state.comments || []).concat([action.payload.comment]),
+        comments: action.error ? null : (state.comments || []).concat([action.payload.comment]),
       };
     case DELETE_COMMENT:
       const commentId = action.commentId;

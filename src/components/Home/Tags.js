@@ -1,5 +1,5 @@
-import React from "react";
-import agent from "../../agent";
+import React from 'react';
+import agent from '../../agent';
 
 const Tags = (props) => {
   const tags = props.tags;
@@ -12,17 +12,12 @@ const Tags = (props) => {
             props.onClickTag(
               tag,
               (page) => agent.Articles.byTag(tag, page),
-              agent.Articles.byTag(tag)
+              agent.Articles.byTag(tag),
             );
           };
 
           return (
-            <a
-              href=""
-              className="tag-default tag-pill"
-              key={tag}
-              onClick={handleClick}
-            >
+            <a href="" className="tag-default tag-pill" key={tag} onClick={handleClick}>
               {tag}
             </a>
           );
