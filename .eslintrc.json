@@ -28,8 +28,6 @@
         "react/no-unescaped-entities": 0,
         "react/react-in-jsx-scope": "off",
         "react/prop-types": "off",
-        "no-console": "warn",
-        "no-inline-comments": "warn",
         "react/jsx-curly-brace-presence": [
             "error",
             {
@@ -55,5 +53,10 @@
             "error",
             "always"
         ]
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
     }
 }
