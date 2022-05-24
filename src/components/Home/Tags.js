@@ -1,8 +1,8 @@
 import React from 'react';
 import agent from '../../agent';
 
-const Tags = (props) => {
-  const tags = props.tags;
+function Tags(props) {
+  const { tags } = props;
   if (tags) {
     return (
       <div className="tag-list">
@@ -17,16 +17,19 @@ const Tags = (props) => {
           };
 
           return (
-            <button className="tag-default tag-pill" key={tag} onClick={handleClick}>
+            <button
+              className="tag-default tag-pill"
+              key={tag}
+              onClick={handleClick}
+            >
               {tag}
             </button>
           );
         })}
       </div>
     );
-  } else {
-    return <div>Loading Tags...</div>;
   }
-};
+  return <div>Loading Tags...</div>;
+}
 
 export default Tags;

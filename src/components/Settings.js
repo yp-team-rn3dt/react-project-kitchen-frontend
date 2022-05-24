@@ -1,8 +1,12 @@
-import ListErrors from './ListErrors';
 import React from 'react';
-import agent from '../agent';
 import { connect } from 'react-redux';
-import { SETTINGS_SAVED, SETTINGS_PAGE_UNLOADED, LOGOUT } from '../constants/actionTypes';
+import ListErrors from './ListErrors';
+import agent from '../agent';
+import {
+  SETTINGS_SAVED,
+  SETTINGS_PAGE_UNLOADED,
+  LOGOUT,
+} from '../constants/actionTypes';
 
 class SettingsForm extends React.Component {
   constructor() {
@@ -17,15 +21,15 @@ class SettingsForm extends React.Component {
     };
 
     this.updateState = (field) => (ev) => {
-      const state = this.state;
-      const newState = Object.assign({}, state, { [field]: ev.target.value });
+      const { state } = this;
+      const newState = { ...state, [field]: ev.target.value };
       this.setState(newState);
     };
 
     this.submitForm = (ev) => {
       ev.preventDefault();
 
-      const user = Object.assign({}, this.state);
+      const user = { ...this.state };
       if (!user.password) {
         delete user.password;
       }
@@ -34,7 +38,7 @@ class SettingsForm extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.currentUser) {
       Object.assign(this.state, {
         image: this.props.currentUser.image || '',
@@ -45,16 +49,15 @@ class SettingsForm extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.currentUser) {
-      this.setState(
-        Object.assign({}, this.state, {
-          image: nextProps.currentUser.image || '',
-          username: nextProps.currentUser.username,
-          bio: nextProps.currentUser.bio,
-          email: nextProps.currentUser.email,
-        }),
-      );
+      this.setState({
+        ...this.state,
+        image: nextProps.currentUser.image || '',
+        username: nextProps.currentUser.username,
+        bio: nextProps.currentUser.bio,
+        email: nextProps.currentUser.email,
+      });
     }
   }
 
@@ -89,7 +92,7 @@ class SettingsForm extends React.Component {
               placeholder="Short bio about you"
               value={this.state.bio}
               onChange={this.updateState('bio')}
-            ></textarea>
+            />
           </fieldset>
 
           <fieldset className="form-group">
@@ -132,7 +135,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onClickLogout: () => dispatch({ type: LOGOUT }),
-  onSubmitForm: (user) => dispatch({ type: SETTINGS_SAVED, payload: agent.Auth.save(user) }),
+  onSubmitForm: (user) =>
+    dispatch({ type: SETTINGS_SAVED, payload: agent.Auth.save(user) }),
   onUnload: () => dispatch({ type: SETTINGS_PAGE_UNLOADED }),
 });
 
@@ -145,7 +149,7 @@ class Settings extends React.Component {
             <div className="col-md-6 offset-md-3 col-xs-12">
               <h1 className="text-xs-center">Your Settings</h1>
 
-              <ListErrors errors={this.props.errors}></ListErrors>
+              <ListErrors errors={this.props.errors} />
 
               <SettingsForm
                 currentUser={this.props.currentUser}
@@ -154,7 +158,10 @@ class Settings extends React.Component {
 
               <hr />
 
-              <button className="btn btn-outline-danger" onClick={this.props.onClickLogout}>
+              <button
+                className="btn btn-outline-danger"
+                onClick={this.props.onClickLogout}
+              >
                 Or click here to logout.
               </button>
             </div>

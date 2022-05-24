@@ -1,8 +1,8 @@
-import ArticleList from './ArticleList';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import agent from '../agent';
 import { connect } from 'react-redux';
+import agent from '../agent';
+import ArticleList from './ArticleList';
 import {
   FOLLOW_USER,
   UNFOLLOW_USER,
@@ -10,18 +10,21 @@ import {
   PROFILE_PAGE_UNLOADED,
 } from '../constants/actionTypes';
 
-const EditProfileSettings = (props) => {
+function EditProfileSettings(props) {
   if (props.isUser) {
     return (
-      <Link to="/settings" className="btn btn-sm btn-outline-secondary action-btn">
-        <i className="ion-gear-a"></i> Edit Profile Settings
+      <Link
+        to="/settings"
+        className="btn btn-sm btn-outline-secondary action-btn"
+      >
+        <i className="ion-gear-a" /> Edit Profile Settings
       </Link>
     );
   }
   return null;
-};
+}
 
-const FollowUserButton = (props) => {
+function FollowUserButton(props) {
   if (props.isUser) {
     return null;
   }
@@ -44,12 +47,12 @@ const FollowUserButton = (props) => {
 
   return (
     <button className={classes} onClick={handleClick}>
-      <i className="ion-plus-round"></i>
+      <i className="ion-plus-round" />
       &nbsp;
       {props.user.following ? 'Unfollow' : 'Follow'} {props.user.username}
     </button>
   );
-};
+}
 
 const mapStateToProps = (state) => ({
   ...state.articleList,
@@ -73,7 +76,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Profile extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.onLoad(
       Promise.all([
         agent.Profile.get(this.props.match.params.username),
@@ -90,13 +93,19 @@ class Profile extends React.Component {
     return (
       <ul className="nav nav-pills outline-active">
         <li className="nav-item">
-          <Link className="nav-link active" to={`/@${this.props.profile.username}`}>
+          <Link
+            className="nav-link active"
+            to={`/@${this.props.profile.username}`}
+          >
             My Articles
           </Link>
         </li>
 
         <li className="nav-item">
-          <Link className="nav-link" to={`/@${this.props.profile.username}/favorites`}>
+          <Link
+            className="nav-link"
+            to={`/@${this.props.profile.username}/favorites`}
+          >
             Favorited Articles
           </Link>
         </li>
@@ -105,13 +114,13 @@ class Profile extends React.Component {
   }
 
   render() {
-    const profile = this.props.profile;
+    const { profile } = this.props;
     if (!profile) {
       return null;
     }
 
-    const isUser =
-      this.props.currentUser && this.props.profile.username === this.props.currentUser.username;
+    const isUser = this.props.currentUser;
+    this.props.profile.username === this.props.currentUser.username;
 
     return (
       <div className="profile-page">
@@ -119,7 +128,11 @@ class Profile extends React.Component {
           <div className="container">
             <div className="row">
               <div className="col-xs-12 col-md-10 offset-md-1">
-                <img src={profile.image} className="user-img" alt={profile.username} />
+                <img
+                  src={profile.image}
+                  className="user-img"
+                  alt={profile.username}
+                />
                 <h4>{profile.username}</h4>
                 <p>{profile.bio}</p>
 

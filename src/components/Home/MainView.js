@@ -1,10 +1,10 @@
-import ArticleList from '../ArticleList';
 import React from 'react';
-import agent from '../../agent';
 import { connect } from 'react-redux';
+import ArticleList from '../ArticleList';
+import agent from '../../agent';
 import { CHANGE_TAB } from '../../constants/actionTypes';
 
-const YourFeedTab = (props) => {
+function YourFeedTab(props) {
   if (props.token) {
     const clickHandler = (ev) => {
       ev.preventDefault();
@@ -23,9 +23,9 @@ const YourFeedTab = (props) => {
     );
   }
   return null;
-};
+}
 
-const GlobalFeedTab = (props) => {
+function GlobalFeedTab(props) {
   const clickHandler = (ev) => {
     ev.preventDefault();
     props.onTabClick('all', agent.Articles.all, agent.Articles.all());
@@ -40,9 +40,9 @@ const GlobalFeedTab = (props) => {
       </button>
     </li>
   );
-};
+}
 
-const TagFilterTab = (props) => {
+function TagFilterTab(props) {
   if (!props.tag) {
     return null;
   }
@@ -50,11 +50,11 @@ const TagFilterTab = (props) => {
   return (
     <li className="nav-item">
       <button className="nav-link active">
-        <i className="ion-pound"></i> {props.tag}
+        <i className="ion-pound" /> {props.tag}
       </button>
     </li>
   );
-};
+}
 
 const mapStateToProps = (state) => ({
   ...state.articleList,
@@ -63,15 +63,25 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onTabClick: (tab, pager, payload) => dispatch({ type: CHANGE_TAB, tab, pager, payload }),
+  onTabClick: (tab, pager, payload) =>
+    dispatch({
+      type: CHANGE_TAB,
+      tab,
+      pager,
+      payload,
+    }),
 });
 
-const MainView = (props) => {
+function MainView(props) {
   return (
     <div className="col-md-9">
       <div className="feed-toggle">
         <ul className="nav nav-pills outline-active">
-          <YourFeedTab token={props.token} tab={props.tab} onTabClick={props.onTabClick} />
+          <YourFeedTab
+            token={props.token}
+            tab={props.tab}
+            onTabClick={props.onTabClick}
+          />
 
           <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
 
@@ -88,6 +98,6 @@ const MainView = (props) => {
       />
     </div>
   );
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainView);

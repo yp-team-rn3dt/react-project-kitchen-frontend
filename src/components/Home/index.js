@@ -1,16 +1,16 @@
+import React from 'react';
+import { connect } from 'react-redux';
 import Banner from './Banner';
 import MainView from './MainView';
-import React from 'react';
 import Tags from './Tags';
 import agent from '../../agent';
-import { connect } from 'react-redux';
 import {
   HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED,
   APPLY_TAG_FILTER,
 } from '../../constants/actionTypes';
 
-const Promise = global.Promise;
+const { Promise } = global;
 
 const mapStateToProps = (state) => ({
   ...state.home,
@@ -19,17 +19,35 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onClickTag: (tag, pager, payload) => dispatch({ type: APPLY_TAG_FILTER, tag, pager, payload }),
-  onLoad: (tab, pager, payload) => dispatch({ type: HOME_PAGE_LOADED, tab, pager, payload }),
+  onClickTag: (tag, pager, payload) =>
+    dispatch({
+      type: APPLY_TAG_FILTER,
+      tag,
+      pager,
+      payload,
+    }),
+  onLoad: (tab, pager, payload) =>
+    dispatch({
+      type: HOME_PAGE_LOADED,
+      tab,
+      pager,
+      payload,
+    }),
   onUnload: () => dispatch({ type: HOME_PAGE_UNLOADED }),
 });
 
 class Home extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const tab = this.props.token ? 'feed' : 'all';
-    const articlesPromise = this.props.token ? agent.Articles.feed : agent.Articles.all;
+    const articlesPromise = this.props.token
+      ? agent.Articles.feed
+      : agent.Articles.all;
 
-    this.props.onLoad(tab, articlesPromise, Promise.all([agent.Tags.getAll(), articlesPromise()]));
+    this.props.onLoad(
+      tab,
+      articlesPromise,
+      Promise.all([agent.Tags.getAll(), articlesPromise()]),
+    );
   }
 
   componentWillUnmount() {
@@ -48,7 +66,10 @@ class Home extends React.Component {
               <div className="sidebar">
                 <p>Popular Tags</p>
 
-                <Tags tags={this.props.tags} onClickTag={this.props.onClickTag} />
+                <Tags
+                  tags={this.props.tags}
+                  onClickTag={this.props.onClickTag}
+                />
               </div>
             </div>
           </div>

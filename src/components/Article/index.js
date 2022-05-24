@@ -1,11 +1,14 @@
-import ArticleMeta from './ArticleMeta';
-import CommentContainer from './CommentContainer';
 import React from 'react';
-import agent from '../../agent';
 import { connect } from 'react-redux';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
-import { ARTICLE_PAGE_LOADED, ARTICLE_PAGE_UNLOADED } from '../../constants/actionTypes';
+import agent from '../../agent';
+import CommentContainer from './CommentContainer';
+import ArticleMeta from './ArticleMeta';
+import {
+  ARTICLE_PAGE_LOADED,
+  ARTICLE_PAGE_UNLOADED,
+} from '../../constants/actionTypes';
 
 const mapStateToProps = (state) => ({
   ...state.article,
@@ -18,7 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Article extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.onLoad(
       Promise.all([
         agent.Articles.get(this.props.match.params.id),
@@ -39,9 +42,8 @@ class Article extends React.Component {
     const markup = {
       __html: DOMPurify.sanitize(marked.parse(this.props.article.body)),
     };
-    const canModify =
-      this.props.currentUser &&
-      this.props.currentUser.username === this.props.article.author.username;
+    const canModify = this.props.currentUser;
+    this.props.currentUser.username === this.props.article.author.username;
     return (
       <div className="article-page">
         <div className="banner">
@@ -54,23 +56,21 @@ class Article extends React.Component {
         <div className="container page">
           <div className="row article-content">
             <div className="col-xs-12">
-              <div dangerouslySetInnerHTML={markup}></div>
+              <div dangerouslySetInnerHTML={markup} />
 
               <ul className="tag-list">
-                {this.props.article.tagList.map((tag) => {
-                  return (
-                    <li className="tag-default tag-pill tag-outline" key={tag}>
-                      {tag}
-                    </li>
-                  );
-                })}
+                {this.props.article.tagList.map((tag) => (
+                  <li className="tag-default tag-pill tag-outline" key={tag}>
+                    {tag}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
 
           <hr />
 
-          <div className="article-actions"></div>
+          <div className="article-actions" />
 
           <div className="row">
             <CommentContainer

@@ -1,6 +1,6 @@
 import React from 'react';
-import agent from '../../agent';
 import { connect } from 'react-redux';
+import agent from '../../agent';
 import { ADD_COMMENT } from '../../constants/actionTypes';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -38,7 +38,7 @@ class CommentInput extends React.Component {
             value={this.state.body}
             onChange={this.setBody}
             rows="3"
-          ></textarea>
+          />
         </div>
         <div className="card-footer">
           <img

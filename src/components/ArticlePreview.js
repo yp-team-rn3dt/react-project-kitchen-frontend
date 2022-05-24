@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import agent from '../agent';
 import { connect } from 'react-redux';
-import { ARTICLE_FAVORITED, ARTICLE_UNFAVORITED } from '../constants/actionTypes';
+import agent from '../agent';
+import {
+  ARTICLE_FAVORITED,
+  ARTICLE_UNFAVORITED,
+} from '../constants/actionTypes';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
@@ -20,9 +23,11 @@ const mapDispatchToProps = (dispatch) => ({
     }),
 });
 
-const ArticlePreview = (props) => {
-  const article = props.article;
-  const favoriteButtonClass = article.favorited ? FAVORITED_CLASS : NOT_FAVORITED_CLASS;
+function ArticlePreview(props) {
+  const { article } = props;
+  const favoriteButtonClass = article.favorited
+    ? FAVORITED_CLASS
+    : NOT_FAVORITED_CLASS;
 
   const handleClick = (ev) => {
     ev.preventDefault();
@@ -44,12 +49,14 @@ const ArticlePreview = (props) => {
           <Link className="author" to={`/@${article.author.username}`}>
             {article.author.username}
           </Link>
-          <span className="date">{new Date(article.createdAt).toDateString()}</span>
+          <span className="date">
+            {new Date(article.createdAt).toDateString()}
+          </span>
         </div>
 
         <div className="pull-xs-right">
           <button className={favoriteButtonClass} onClick={handleClick}>
-            <i className="ion-heart"></i> {article.favoritesCount}
+            <i className="ion-heart" /> {article.favoritesCount}
           </button>
         </div>
       </div>
@@ -59,17 +66,15 @@ const ArticlePreview = (props) => {
         <p>{article.description}</p>
         <span>Read more...</span>
         <ul className="tag-list">
-          {article.tagList.map((tag) => {
-            return (
-              <li className="tag-default tag-pill tag-outline" key={tag}>
-                {tag}
-              </li>
-            );
-          })}
+          {article.tagList.map((tag) => (
+            <li className="tag-default tag-pill tag-outline" key={tag}>
+              {tag}
+            </li>
+          ))}
         </ul>
       </Link>
     </div>
   );
-};
+}
 
 export default connect(() => ({}), mapDispatchToProps)(ArticlePreview);
