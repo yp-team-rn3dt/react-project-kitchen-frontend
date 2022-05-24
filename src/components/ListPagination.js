@@ -40,9 +40,9 @@ const ListPagination = (props) => {
               onClick={onClick}
               key={v.toString()}
             >
-              <a className="page-link" href="">
+              <button className="page-link" href="">
                 {v + 1}
-              </a>
+              </button>
             </li>
           );
         })}

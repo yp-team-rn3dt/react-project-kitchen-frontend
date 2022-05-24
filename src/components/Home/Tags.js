@@ -17,9 +17,9 @@ const Tags = (props) => {
           };
 
           return (
-            <a href="" className="tag-default tag-pill" key={tag} onClick={handleClick}>
+            <button className="tag-default tag-pill" key={tag} onClick={handleClick}>
               {tag}
-            </a>
+            </button>
           );
         })}
       </div>

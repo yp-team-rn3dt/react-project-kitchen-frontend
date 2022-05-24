@@ -16,6 +16,7 @@
   "dependencies": {
     "connected-react-router": "^6.9.2",
     "dompurify": "^2.3.8",
+    "eslint": "^5.6.0",
     "history": "^4.7.2",
     "marked": "^4.0.16",
     "prop-types": "^15.8.1",
