@@ -141,11 +141,14 @@ class Editor extends React.Component {
                     />
 
                     <div className="tag-list">
-                      {(this.props.tagList || []).map((tag) => (
+                      {(this.props.tagList || []).map((tag, key) => (
                         <span className="tag-default tag-pill" key={tag}>
                           <i
+                            role="button"
+                            tabIndex={key}
                             className="ion-close-round"
                             onClick={this.removeTagHandler(tag)}
+                            onKeyDown={this.removeTagHandler(tag)}
                           />
                           {tag}
                         </span>

@@ -9,7 +9,7 @@ import Article from './Article';
 import Editor from './Editor';
 import Home from './Home';
 import Login from './Login';
-import { Profile } from './Profile';
+import ConnectedProfile from './Profile';
 import ProfileFavorites from './ProfileFavorites';
 import Register from './Register';
 import Settings from './Settings';
@@ -68,7 +68,7 @@ class App extends React.Component {
             <Route path="/article/:id" component={Article} />
             <Route path="/settings" component={Settings} />
             <Route path="/@:username/favorites" component={ProfileFavorites} />
-            <Route path="/@:username" component={Profile} />
+            <Route path="/@:username" component={ConnectedProfile} />
           </Switch>
         </div>
       );

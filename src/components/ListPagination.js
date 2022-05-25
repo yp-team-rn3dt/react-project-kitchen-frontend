@@ -37,10 +37,9 @@ function ListPagination(props) {
           return (
             <li
               className={isCurrent ? 'page-item active' : 'page-item'}
-              onClick={onClick}
               key={v.toString()}
             >
-              <button className="page-link" href="">
+              <button onClick={onClick} className="page-link" href="">
                 {v + 1}
               </button>
             </li>
