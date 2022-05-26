@@ -17,13 +17,7 @@ function DeleteButton(props) {
   if (props.show) {
     return (
       <span className="mod-options">
-        <i
-          role="button"
-          tabIndex={0}
-          className="ion-trash-a"
-          onClick={del}
-          onKeyDown={del}
-        />
+        <i role="button" tabIndex={0} className="ion-trash-a" onMouseUp={del} />
       </span>
     );
   }
