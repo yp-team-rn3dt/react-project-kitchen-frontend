@@ -7,21 +7,21 @@ const mapDispatchToProps = (dispatch) => ({
   onSetPage: (page, payload) => dispatch({ type: SET_PAGE, page, payload }),
 });
 
-function ListPagination(props) {
-  if (props.articlesCount <= 10) {
+function ListPagination({ articlesCount, pager, onSetPage, currentPage }) {
+  if (articlesCount <= 10) {
     return null;
   }
 
   const range = [];
-  for (let i = 0; i < Math.ceil(props.articlesCount / 10); ++i) {
+  for (let i = 0; i < Math.ceil(articlesCount / 10); i += 1) {
     range.push(i);
   }
 
   const setPage = (page) => {
-    if (props.pager) {
-      props.onSetPage(page, props.pager(page));
+    if (pager) {
+      onSetPage(page, pager(page));
     } else {
-      props.onSetPage(page, agent.Articles.all(page));
+      onSetPage(page, agent.Articles.all(page));
     }
   };
 
@@ -29,7 +29,7 @@ function ListPagination(props) {
     <nav>
       <ul className="pagination">
         {range.map((v) => {
-          const isCurrent = v === props.currentPage;
+          const isCurrent = v === currentPage;
           const onClick = (ev) => {
             ev.preventDefault();
             setPage(v);
@@ -39,7 +39,12 @@ function ListPagination(props) {
               className={isCurrent ? 'page-item active' : 'page-item'}
               key={v.toString()}
             >
-              <button onClick={onClick} className="page-link" href="">
+              <button
+                onClick={onClick}
+                className="page-link"
+                href=""
+                type="button"
+              >
                 {v + 1}
               </button>
             </li>
