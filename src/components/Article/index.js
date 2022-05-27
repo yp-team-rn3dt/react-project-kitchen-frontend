@@ -22,35 +22,37 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Article extends React.Component {
   UNSAFE_componentWillMount() {
-    this.props.onLoad(
+    const { onLoad, match } = this.props;
+    onLoad(
       Promise.all([
-        agent.Articles.get(this.props.match.params.id),
-        agent.Comments.forArticle(this.props.match.params.id),
+        agent.Articles.get(match.params.id),
+        agent.Comments.forArticle(match.params.id),
       ]),
     );
   }
 
   componentWillUnmount() {
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.onUnload();
   }
 
   render() {
-    if (!this.props.article) {
+    const { article, currentUser, comments, commentErrors, match } = this.props;
+    if (!article) {
       return null;
     }
 
     const markup = {
-      __html: DOMPurify.sanitize(marked.parse(this.props.article.body)),
+      __html: DOMPurify.sanitize(marked.parse(article.body)),
     };
     const canModify =
-      this.props.currentUser &&
-      this.props.currentUser.username === this.props.article.author.username;
+      currentUser && currentUser.username === article.author.username;
     return (
       <div className="article-page">
         <div className="banner">
           <div className="container">
-            <h1>{this.props.article.title}</h1>
-            <ArticleMeta article={this.props.article} canModify={canModify} />
+            <h1>{article.title}</h1>
+            <ArticleMeta article={article} canModify={canModify} />
           </div>
         </div>
 
@@ -60,7 +62,7 @@ class Article extends React.Component {
               <div dangerouslySetInnerHTML={markup} />
 
               <ul className="tag-list">
-                {this.props.article.tagList.map((tag) => (
+                {article.tagList.map((tag) => (
                   <li className="tag-default tag-pill tag-outline" key={tag}>
                     {tag}
                   </li>
@@ -75,10 +77,10 @@ class Article extends React.Component {
 
           <div className="row">
             <CommentContainer
-              comments={this.props.comments || []}
-              errors={this.props.commentErrors}
-              slug={this.props.match.params.id}
-              currentUser={this.props.currentUser}
+              comments={comments || []}
+              errors={commentErrors}
+              slug={match.params.id}
+              currentUser={currentUser}
             />
           </div>
         </div>
