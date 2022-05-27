@@ -20,31 +20,33 @@ class CommentInput extends React.Component {
 
     this.createComment = (ev) => {
       ev.preventDefault();
-      const payload = agent.Comments.create(this.props.slug, {
-        body: this.state.body,
-      });
+      const { slug, onSubmit } = this.props;
+      const { body } = this.state;
+      const payload = agent.Comments.create(slug, { body });
       this.setState({ body: '' });
-      this.props.onSubmit(payload);
+      onSubmit(payload);
     };
   }
 
   render() {
+    const { body } = this.state;
+    const { currentUser } = this.props;
     return (
       <form className="card comment-form" onSubmit={this.createComment}>
         <div className="card-block">
           <textarea
             className="form-control"
             placeholder="Write a comment..."
-            value={this.state.body}
+            value={body}
             onChange={this.setBody}
             rows="3"
           />
         </div>
         <div className="card-footer">
           <img
-            src={this.props.currentUser.image}
+            src={currentUser.image}
             className="comment-author-img"
-            alt={this.props.currentUser.username}
+            alt={currentUser.username}
           />
           <button className="btn btn-sm btn-primary" type="submit">
             Post Comment
