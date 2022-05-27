@@ -7,23 +7,28 @@ import {
   REGISTER,
 } from './constants/actionTypes';
 
+function isPromise(v) {
+  return v && typeof v.then === 'function';
+}
+
 const promiseMiddleware = (store) => (next) => (action) => {
-  if (isPromise(action.payload)) {
-    store.dispatch({ type: ASYNC_START, subtype: action.type });
+  const newAction = { ...action };
+  if (isPromise(newAction.payload)) {
+    store.dispatch({ type: ASYNC_START, subtype: newAction.type });
 
     const currentView = store.getState().viewChangeCounter;
-    const { skipTracking } = action;
+    const { skipTracking } = newAction;
 
-    action.payload.then(
+    newAction.payload.then(
       (res) => {
         const currentState = store.getState();
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
           return;
         }
         console.log('RESULT', res);
-        action.payload = res;
-        store.dispatch({ type: ASYNC_END, promise: action.payload });
-        store.dispatch(action);
+        newAction.payload = res;
+        store.dispatch({ type: ASYNC_END, promise: newAction.payload });
+        store.dispatch(newAction);
       },
       (error) => {
         const currentState = store.getState();
@@ -31,22 +36,22 @@ const promiseMiddleware = (store) => (next) => (action) => {
           return;
         }
         console.log('ERROR', error);
-        action.error = true;
-        action.payload = error.response.body;
-        if (!action.skipTracking) {
+        newAction.error = true;
+        newAction.payload = error.response.body;
+        if (!newAction.skipTracking) {
           store.dispatch({
             type: ASYNC_END,
-            promise: action.payload,
+            promise: newAction.payload,
           });
         }
-        store.dispatch(action);
+        store.dispatch(newAction);
       },
     );
 
     return;
   }
 
-  next(action);
+  next(newAction);
 };
 
 const localStorageMiddleware = () => (next) => (action) => {
@@ -62,9 +67,5 @@ const localStorageMiddleware = () => (next) => (action) => {
 
   next(action);
 };
-
-function isPromise(v) {
-  return v && typeof v.then === 'function';
-}
 
 export { promiseMiddleware, localStorageMiddleware };
