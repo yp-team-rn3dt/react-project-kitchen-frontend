@@ -8,16 +8,22 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch({ type: DELETE_COMMENT, payload, commentId }),
 });
 
-function DeleteButton(props) {
+function DeleteButton({ slug, commentId, onClick, show }) {
   const del = () => {
-    const payload = agent.Comments.delete(props.slug, props.commentId);
-    props.onClick(payload, props.commentId);
+    const payload = agent.Comments.delete(slug, commentId);
+    onClick(payload, commentId);
   };
 
-  if (props.show) {
+  if (show) {
     return (
       <span className="mod-options">
-        <i role="button" tabIndex={0} className="ion-trash-a" onMouseUp={del} />
+        <i
+          role="button"
+          tabIndex={0}
+          className="ion-trash-a"
+          onMouseUp={del}
+          label="delete button"
+        />
       </span>
     );
   }
