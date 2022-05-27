@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import ArticleActions from './ArticleActions';
 
-function ArticleMeta(props) {
-  const { article } = props;
+function ArticleMeta({ article, canModify }) {
   return (
     <div className="article-meta">
       <Link to={`/@${article.author.username}`}>
@@ -19,7 +18,7 @@ function ArticleMeta(props) {
         </span>
       </div>
 
-      <ArticleActions canModify={props.canModify} article={article} />
+      <ArticleActions canModify={canModify} article={article} />
     </div>
   );
 }
