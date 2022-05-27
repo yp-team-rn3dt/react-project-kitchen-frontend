@@ -3,19 +3,19 @@ import React from 'react';
 import CommentInput from './CommentInput';
 import CommentList from './CommentList';
 
-function CommentContainer(props) {
-  if (props.currentUser) {
+function CommentContainer({ currentUser, errors, slug, comments }) {
+  if (currentUser) {
     return (
       <div className="col-xs-12 col-md-8 offset-md-2">
         <div>
-          <list-errors errors={props.errors} />
-          <CommentInput slug={props.slug} currentUser={props.currentUser} />
+          <list-errors errors={errors} />
+          <CommentInput slug={slug} currentUser={currentUser} />
         </div>
 
         <CommentList
-          comments={props.comments}
-          slug={props.slug}
-          currentUser={props.currentUser}
+          comments={comments}
+          slug={slug}
+          currentUser={currentUser}
         />
       </div>
     );
@@ -29,11 +29,7 @@ function CommentContainer(props) {
         &nbsp;to add comments on this article.
       </p>
 
-      <CommentList
-        comments={props.comments}
-        slug={props.slug}
-        currentUser={props.currentUser}
-      />
+      <CommentList comments={comments} slug={slug} currentUser={currentUser} />
     </div>
   );
 }
