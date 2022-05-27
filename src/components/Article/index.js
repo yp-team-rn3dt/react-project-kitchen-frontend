@@ -42,8 +42,9 @@ class Article extends React.Component {
     const markup = {
       __html: DOMPurify.sanitize(marked.parse(this.props.article.body)),
     };
-    const canModify = this.props.currentUser;
-    this.props.currentUser.username = this.props.article.author.username;
+    const canModify =
+      this.props.currentUser &&
+      this.props.currentUser.username === this.props.article.author.username;
     return (
       <div className="article-page">
         <div className="banner">
