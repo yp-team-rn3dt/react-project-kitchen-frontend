@@ -5,7 +5,7 @@ import {
   DELETE_COMMENT,
 } from '../constants/actionTypes';
 
-export default (state = {}, action) => {
+export default (state = {}, action = null) => {
   switch (action.type) {
     case ARTICLE_PAGE_LOADED:
       return {

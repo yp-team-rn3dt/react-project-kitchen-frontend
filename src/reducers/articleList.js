@@ -12,7 +12,7 @@ import {
   PROFILE_FAVORITES_PAGE_UNLOADED,
 } from '../constants/actionTypes';
 
-export default (state = {}, action) => {
+export default (state = {}, action = null) => {
   switch (action.type) {
     case ARTICLE_FAVORITED:
     case ARTICLE_UNFAVORITED:

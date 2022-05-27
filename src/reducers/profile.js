@@ -5,7 +5,7 @@ import {
   UNFOLLOW_USER,
 } from '../constants/actionTypes';
 
-export default (state = {}, action) => {
+export default (state = {}, action = null) => {
   switch (action.type) {
     case PROFILE_PAGE_LOADED:
       return action.payload ? { ...action.payload[0].profile } : {};

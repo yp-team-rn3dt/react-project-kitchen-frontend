@@ -4,7 +4,7 @@ import {
   ASYNC_START,
 } from '../constants/actionTypes';
 
-export default (state = {}, action) => {
+export default (state = {}, action = null) => {
   switch (action.type) {
     case SETTINGS_SAVED:
       return {
