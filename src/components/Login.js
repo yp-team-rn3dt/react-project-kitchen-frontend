@@ -24,21 +24,24 @@ const mapDispatchToProps = (dispatch) => ({
 class Login extends React.Component {
   constructor() {
     super();
+    // eslint-disable-next-line react/destructuring-assignment
     this.changeEmail = (ev) => this.props.onChangeEmail(ev.target.value);
+    // eslint-disable-next-line react/destructuring-assignment
     this.changePassword = (ev) => this.props.onChangePassword(ev.target.value);
     this.submitForm = (email, password) => (ev) => {
       ev.preventDefault();
+      // eslint-disable-next-line react/destructuring-assignment
       this.props.onSubmit(email, password);
     };
   }
 
   componentWillUnmount() {
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.onUnload();
   }
 
   render() {
-    const { email } = this.props;
-    const { password } = this.props;
+    const { email, password, errors, inProgress } = this.props;
     return (
       <div className="auth-page">
         <div className="container page">
@@ -49,7 +52,7 @@ class Login extends React.Component {
                 <Link to="/register">Need an account?</Link>
               </p>
 
-              <ListErrors errors={this.props.errors} />
+              <ListErrors errors={errors} />
 
               <form onSubmit={this.submitForm(email, password)}>
                 <fieldset>
@@ -76,7 +79,7 @@ class Login extends React.Component {
                   <button
                     className="btn btn-lg btn-primary pull-xs-right"
                     type="submit"
-                    disabled={this.props.inProgress}
+                    disabled={inProgress}
                   >
                     Sign in
                   </button>
