@@ -12,6 +12,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.5.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^12.4.2",
     "prettier": "2.6.2",
     "react-scripts": "5.0.1"
   },
@@ -38,7 +40,8 @@
     "test": "cross-env PORT=4100 react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint '**/*.+(js|jsx|ts|tsx)' --fix --max-warnings=0",
-    "prettier": "prettier  — write '**/*.+(js|jsx|ts|tsx)'"
+    "prettier": "prettier  — write '**/*.+(js|jsx|ts|tsx)'",
+    "prepare": "husky install"
   },
   "browserslist": {
     "production": [
@@ -50,6 +53,17 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.(js|jsx|ts|tsx)": [
+      "npm run lint",
+      "npm run prettier"
     ]
   }
 }
