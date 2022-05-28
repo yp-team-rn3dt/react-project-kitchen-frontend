@@ -25,7 +25,6 @@ const promiseMiddleware = (store) => (next) => (action) => {
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
           return;
         }
-        console.log('RESULT', res);
         newAction.payload = res;
         store.dispatch({ type: ASYNC_END, promise: newAction.payload });
         store.dispatch(newAction);
@@ -35,7 +34,6 @@ const promiseMiddleware = (store) => (next) => (action) => {
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
           return;
         }
-        console.log('ERROR', error);
         newAction.error = true;
         newAction.payload = error.response.body;
         if (!newAction.skipTracking) {
