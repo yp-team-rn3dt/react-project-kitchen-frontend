@@ -38,12 +38,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Home extends React.Component {
   UNSAFE_componentWillMount() {
-    const tab = this.props.token ? 'feed' : 'all';
-    const articlesPromise = this.props.token
-      ? agent.Articles.feed
-      : agent.Articles.all;
+    const { token, onLoad } = this.props;
+    const tab = token ? 'feed' : 'all';
+    const articlesPromise = token ? agent.Articles.feed : agent.Articles.all;
 
-    this.props.onLoad(
+    onLoad(
       tab,
       articlesPromise,
       Promise.all([agent.Tags.getAll(), articlesPromise()]),
@@ -51,13 +50,15 @@ class Home extends React.Component {
   }
 
   componentWillUnmount() {
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.onUnload();
   }
 
   render() {
+    const { token, appName, tags, onClickTag } = this.props;
     return (
       <div className="home-page">
-        <Banner token={this.props.token} appName={this.props.appName} />
+        <Banner token={token} appName={appName} />
         <div className="container page">
           <div className="row">
             <MainView />
@@ -66,10 +67,7 @@ class Home extends React.Component {
               <div className="sidebar">
                 <p>Popular Tags</p>
 
-                <Tags
-                  tags={this.props.tags}
-                  onClickTag={this.props.onClickTag}
-                />
+                <Tags tags={tags} onClickTag={onClickTag} />
               </div>
             </div>
           </div>

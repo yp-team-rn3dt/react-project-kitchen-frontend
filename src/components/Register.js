@@ -28,23 +28,30 @@ const mapDispatchToProps = (dispatch) => ({
 class Register extends React.Component {
   constructor() {
     super();
+
+    // eslint-disable-next-line react/destructuring-assignment
     this.changeEmail = (ev) => this.props.onChangeEmail(ev.target.value);
+
+    // eslint-disable-next-line react/destructuring-assignment
     this.changePassword = (ev) => this.props.onChangePassword(ev.target.value);
+
+    // eslint-disable-next-line react/destructuring-assignment
     this.changeUsername = (ev) => this.props.onChangeUsername(ev.target.value);
+
     this.submitForm = (username, email, password) => (ev) => {
       ev.preventDefault();
+      // eslint-disable-next-line react/destructuring-assignment
       this.props.onSubmit(username, email, password);
     };
   }
 
   componentWillUnmount() {
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.onUnload();
   }
 
   render() {
-    const { email } = this.props;
-    const { password } = this.props;
-    const { username } = this.props;
+    const { email, password, username, errors, inProgress } = this.props;
 
     return (
       <div className="auth-page">
@@ -56,7 +63,7 @@ class Register extends React.Component {
                 <Link to="/login">Have an account?</Link>
               </p>
 
-              <ListErrors errors={this.props.errors} />
+              <ListErrors errors={errors} />
 
               <form onSubmit={this.submitForm(username, email, password)}>
                 <fieldset>
@@ -65,7 +72,7 @@ class Register extends React.Component {
                       className="form-control form-control-lg"
                       type="text"
                       placeholder="Username"
-                      value={this.props.username}
+                      value={username}
                       onChange={this.changeUsername}
                     />
                   </fieldset>
@@ -75,7 +82,7 @@ class Register extends React.Component {
                       className="form-control form-control-lg"
                       type="email"
                       placeholder="Email"
-                      value={this.props.email}
+                      value={email}
                       onChange={this.changeEmail}
                     />
                   </fieldset>
@@ -85,7 +92,7 @@ class Register extends React.Component {
                       className="form-control form-control-lg"
                       type="password"
                       placeholder="Password"
-                      value={this.props.password}
+                      value={password}
                       onChange={this.changePassword}
                     />
                   </fieldset>
@@ -93,7 +100,7 @@ class Register extends React.Component {
                   <button
                     className="btn btn-lg btn-primary pull-xs-right"
                     type="submit"
-                    disabled={this.props.inProgress}
+                    disabled={inProgress}
                   >
                     Sign up
                   </button>

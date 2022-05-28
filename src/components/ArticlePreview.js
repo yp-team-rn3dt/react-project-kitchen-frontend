@@ -23,8 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
     }),
 });
 
-function ArticlePreview(props) {
-  const { article } = props;
+function ArticlePreview({ article, unfavorite, favorite }) {
   const favoriteButtonClass = article.favorited
     ? FAVORITED_CLASS
     : NOT_FAVORITED_CLASS;
@@ -32,9 +31,9 @@ function ArticlePreview(props) {
   const handleClick = (ev) => {
     ev.preventDefault();
     if (article.favorited) {
-      props.unfavorite(article.slug);
+      unfavorite(article.slug);
     } else {
-      props.favorite(article.slug);
+      favorite(article.slug);
     }
   };
 
@@ -55,7 +54,11 @@ function ArticlePreview(props) {
         </div>
 
         <div className="pull-xs-right">
-          <button className={favoriteButtonClass} onClick={handleClick}>
+          <button
+            className={favoriteButtonClass}
+            onClick={handleClick}
+            type="button"
+          >
             <i className="ion-heart" /> {article.favoritesCount}
           </button>
         </div>

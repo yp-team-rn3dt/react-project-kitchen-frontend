@@ -8,7 +8,7 @@ import {
   UPDATE_FIELD_EDITOR,
 } from '../constants/actionTypes';
 
-export default (state = {}, action) => {
+export default (state = {}, action = null) => {
   switch (action.type) {
     case EDITOR_PAGE_LOADED:
       return {

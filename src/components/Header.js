@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function LoggedOutView(props) {
-  if (!props.currentUser) {
+function LoggedOutView({ currentUser }) {
+  if (!currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
         <li className="nav-item">
@@ -28,8 +28,8 @@ function LoggedOutView(props) {
   return null;
 }
 
-function LoggedInView(props) {
-  if (props.currentUser) {
+function LoggedInView({ currentUser }) {
+  if (currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
         <li className="nav-item">
@@ -53,10 +53,10 @@ function LoggedInView(props) {
         </li>
 
         <li className="nav-item">
-          <Link to={`/@${props.currentUser.username}`} className="nav-link">
+          <Link to={`/@${currentUser.username}`} className="nav-link">
             <span>
               Hello,
-              {props.currentUser.username}
+              {currentUser.username}
             </span>
           </Link>
         </li>
@@ -67,22 +67,20 @@ function LoggedInView(props) {
   return null;
 }
 
-class Header extends React.Component {
-  render() {
-    return (
-      <nav className="navbar navbar-light">
-        <div className="container">
-          <Link to="/" className="navbar-brand">
-            {this.props.appName.toLowerCase()}
-          </Link>
+function Header({ appName, currentUser }) {
+  return (
+    <nav className="navbar navbar-light">
+      <div className="container">
+        <Link to="/" className="navbar-brand">
+          {appName.toLowerCase()}
+        </Link>
 
-          <LoggedOutView currentUser={this.props.currentUser} />
+        <LoggedOutView currentUser={currentUser} />
 
-          <LoggedInView currentUser={this.props.currentUser} />
-        </div>
-      </nav>
-    );
-  }
+        <LoggedInView currentUser={currentUser} />
+      </div>
+    </nav>
+  );
 }
 
 export default Header;

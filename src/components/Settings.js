@@ -11,7 +11,6 @@ import {
 class SettingsForm extends React.Component {
   constructor() {
     super();
-
     this.state = {
       image: '',
       username: '',
@@ -34,17 +33,19 @@ class SettingsForm extends React.Component {
         delete user.password;
       }
 
+      // eslint-disable-next-line react/destructuring-assignment
       this.props.onSubmitForm(user);
     };
   }
 
   UNSAFE_componentWillMount() {
-    if (this.props.currentUser) {
+    const currentUser = this.props;
+    if (currentUser) {
       Object.assign(this.state, {
-        image: this.props.currentUser.image || '',
-        username: this.props.currentUser.username,
-        bio: this.props.currentUser.bio,
-        email: this.props.currentUser.email,
+        image: currentUser.image || '',
+        username: currentUser.username,
+        bio: currentUser.bio,
+        email: currentUser.email,
       });
     }
   }
@@ -52,7 +53,6 @@ class SettingsForm extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.currentUser) {
       this.setState({
-        ...this.state,
         image: nextProps.currentUser.image || '',
         username: nextProps.currentUser.username,
         bio: nextProps.currentUser.bio,
@@ -62,6 +62,7 @@ class SettingsForm extends React.Component {
   }
 
   render() {
+    const { image, username, bio, email, password, inProgress } = this.state;
     return (
       <form onSubmit={this.submitForm}>
         <fieldset>
@@ -70,7 +71,7 @@ class SettingsForm extends React.Component {
               className="form-control"
               type="text"
               placeholder="URL of profile picture"
-              value={this.state.image}
+              value={image}
               onChange={this.updateState('image')}
             />
           </fieldset>
@@ -80,7 +81,7 @@ class SettingsForm extends React.Component {
               className="form-control form-control-lg"
               type="text"
               placeholder="Username"
-              value={this.state.username}
+              value={username}
               onChange={this.updateState('username')}
             />
           </fieldset>
@@ -90,7 +91,7 @@ class SettingsForm extends React.Component {
               className="form-control form-control-lg"
               rows="8"
               placeholder="Short bio about you"
-              value={this.state.bio}
+              value={bio}
               onChange={this.updateState('bio')}
             />
           </fieldset>
@@ -100,7 +101,7 @@ class SettingsForm extends React.Component {
               className="form-control form-control-lg"
               type="email"
               placeholder="Email"
-              value={this.state.email}
+              value={email}
               onChange={this.updateState('email')}
             />
           </fieldset>
@@ -110,7 +111,7 @@ class SettingsForm extends React.Component {
               className="form-control form-control-lg"
               type="password"
               placeholder="New Password"
-              value={this.state.password}
+              value={password}
               onChange={this.updateState('password')}
             />
           </fieldset>
@@ -118,7 +119,7 @@ class SettingsForm extends React.Component {
           <button
             className="btn btn-lg btn-primary pull-xs-right"
             type="submit"
-            disabled={this.state.inProgress}
+            disabled={inProgress}
           >
             Update Settings
           </button>
@@ -140,36 +141,35 @@ const mapDispatchToProps = (dispatch) => ({
   onUnload: () => dispatch({ type: SETTINGS_PAGE_UNLOADED }),
 });
 
-class Settings extends React.Component {
-  render() {
-    return (
-      <div className="settings-page">
-        <div className="container page">
-          <div className="row">
-            <div className="col-md-6 offset-md-3 col-xs-12">
-              <h1 className="text-xs-center">Your Settings</h1>
+function Settings({ errors, currentUser, onSubmitForm, onClickLogout }) {
+  return (
+    <div className="settings-page">
+      <div className="container page">
+        <div className="row">
+          <div className="col-md-6 offset-md-3 col-xs-12">
+            <h1 className="text-xs-center">Your Settings</h1>
 
-              <ListErrors errors={this.props.errors} />
+            <ListErrors errors={errors} />
 
-              <SettingsForm
-                currentUser={this.props.currentUser}
-                onSubmitForm={this.props.onSubmitForm}
-              />
+            <SettingsForm
+              currentUser={currentUser}
+              onSubmitForm={onSubmitForm}
+            />
 
-              <hr />
+            <hr />
 
-              <button
-                className="btn btn-outline-danger"
-                onClick={this.props.onClickLogout}
-              >
-                Or click here to logout.
-              </button>
-            </div>
+            <button
+              className="btn btn-outline-danger"
+              onClick={onClickLogout}
+              type="button"
+            >
+              Or click here to logout.
+            </button>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

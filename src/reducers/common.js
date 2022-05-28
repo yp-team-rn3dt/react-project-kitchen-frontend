@@ -23,7 +23,7 @@ const defaultState = {
   viewChangeCounter: 0,
 };
 
-export default (state = defaultState, action) => {
+export default (state = defaultState, action = null) => {
   switch (action.type) {
     case APP_LOAD:
       return {

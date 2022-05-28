@@ -11,6 +11,7 @@
         "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
         "plugin:import/recommended",
+        "airbnb",
         "eslint-config-prettier",
         "prettier"
     ],
@@ -28,6 +29,7 @@
     "rules": {
         "react/no-unescaped-entities": 0,
         "react/react-in-jsx-scope": "off",
+        "react/jsx-filename-extension": [1, { "allow": "as-needed" }],
         "react/prop-types": "off",
         "react/jsx-curly-brace-presence": [
             "error",

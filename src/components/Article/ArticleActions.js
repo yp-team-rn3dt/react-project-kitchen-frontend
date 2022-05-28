@@ -8,12 +8,11 @@ const mapDispatchToProps = (dispatch) => ({
   onClickDelete: (payload) => dispatch({ type: DELETE_ARTICLE, payload }),
 });
 
-function ArticleActions(props) {
-  const { article } = props;
+function ArticleActions({ article, onClickDelete, canModify }) {
   const del = () => {
-    props.onClickDelete(agent.Articles.del(article.slug));
+    onClickDelete(agent.Articles.del(article.slug));
   };
-  if (props.canModify) {
+  if (canModify) {
     return (
       <span>
         <Link
@@ -23,7 +22,11 @@ function ArticleActions(props) {
           <i className="ion-edit" /> Edit Article
         </Link>
 
-        <button className="btn btn-outline-danger btn-sm" onClick={del}>
+        <button
+          className="btn btn-outline-danger btn-sm"
+          onClick={del}
+          type="button"
+        >
           <i className="ion-trash-a" /> Delete Article
         </button>
       </span>

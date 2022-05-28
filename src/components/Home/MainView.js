@@ -4,18 +4,19 @@ import ArticleList from '../ArticleList';
 import agent from '../../agent';
 import { CHANGE_TAB } from '../../constants/actionTypes';
 
-function YourFeedTab(props) {
-  if (props.token) {
+function YourFeedTab({ token, tab, onTabClick }) {
+  if (token) {
     const clickHandler = (ev) => {
       ev.preventDefault();
-      props.onTabClick('feed', agent.Articles.feed, agent.Articles.feed());
+      onTabClick('feed', agent.Articles.feed, agent.Articles.feed());
     };
 
     return (
       <li className="nav-item">
         <button
-          className={props.tab === 'feed' ? 'nav-link active' : 'nav-link'}
+          className={tab === 'feed' ? 'nav-link active' : 'nav-link'}
           onClick={clickHandler}
+          type="button"
         >
           Your Feed
         </button>
@@ -25,16 +26,17 @@ function YourFeedTab(props) {
   return null;
 }
 
-function GlobalFeedTab(props) {
+function GlobalFeedTab({ tab, onTabClick }) {
   const clickHandler = (ev) => {
     ev.preventDefault();
-    props.onTabClick('all', agent.Articles.all, agent.Articles.all());
+    onTabClick('all', agent.Articles.all, agent.Articles.all());
   };
   return (
     <li className="nav-item">
       <button
-        className={props.tab === 'all' ? 'nav-link active' : 'nav-link'}
+        className={tab === 'all' ? 'nav-link active' : 'nav-link'}
         onClick={clickHandler}
+        type="button"
       >
         Global Feed
       </button>
@@ -42,15 +44,15 @@ function GlobalFeedTab(props) {
   );
 }
 
-function TagFilterTab(props) {
-  if (!props.tag) {
+function TagFilterTab({ tag }) {
+  if (!tag) {
     return null;
   }
 
   return (
     <li className="nav-item">
-      <button className="nav-link active">
-        <i className="ion-pound" /> {props.tag}
+      <button className="nav-link active" type="button">
+        <i className="ion-pound" /> {tag}
       </button>
     </li>
   );
@@ -72,29 +74,35 @@ const mapDispatchToProps = (dispatch) => ({
     }),
 });
 
-function MainView(props) {
+function MainView({
+  token,
+  tab,
+  tag,
+  onTabClick,
+  pager,
+  articles,
+  loading,
+  articlesCount,
+  currentPage,
+}) {
   return (
     <div className="col-md-9">
       <div className="feed-toggle">
         <ul className="nav nav-pills outline-active">
-          <YourFeedTab
-            token={props.token}
-            tab={props.tab}
-            onTabClick={props.onTabClick}
-          />
+          <YourFeedTab token={token} tab={tab} onTabClick={onTabClick} />
 
-          <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
+          <GlobalFeedTab tab={tab} onTabClick={onTabClick} />
 
-          <TagFilterTab tag={props.tag} />
+          <TagFilterTab tag={tag} />
         </ul>
       </div>
 
       <ArticleList
-        pager={props.pager}
-        articles={props.articles}
-        loading={props.loading}
-        articlesCount={props.articlesCount}
-        currentPage={props.currentPage}
+        pager={pager}
+        articles={articles}
+        loading={loading}
+        articlesCount={articlesCount}
+        currentPage={currentPage}
       />
     </div>
   );

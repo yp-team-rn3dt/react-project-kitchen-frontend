@@ -10,8 +10,8 @@ import {
   PROFILE_PAGE_UNLOADED,
 } from '../constants/actionTypes';
 
-function EditProfileSettings(props) {
-  if (props.isUser) {
+function EditProfileSettings({ isUser }) {
+  if (isUser) {
     return (
       <Link
         to="/settings"
@@ -24,13 +24,13 @@ function EditProfileSettings(props) {
   return null;
 }
 
-function FollowUserButton(props) {
-  if (props.isUser) {
+function FollowUserButton({ isUser, user, follow, unfollow }) {
+  if (isUser) {
     return null;
   }
 
   let classes = 'btn btn-sm action-btn';
-  if (props.user.following) {
+  if (user.following) {
     classes += ' btn-secondary';
   } else {
     classes += ' btn-outline-secondary';
@@ -38,18 +38,18 @@ function FollowUserButton(props) {
 
   const handleClick = (ev) => {
     ev.preventDefault();
-    if (props.user.following) {
-      props.unfollow(props.user.username);
+    if (user.following) {
+      unfollow(user.username);
     } else {
-      props.follow(props.user.username);
+      follow(user.username);
     }
   };
 
   return (
-    <button className={classes} onClick={handleClick}>
+    <button className={classes} onClick={handleClick} type="button">
       <i className="ion-plus-round" />
       &nbsp;
-      {props.user.following ? 'Unfollow' : 'Follow'} {props.user.username}
+      {user.following ? 'Unfollow' : 'Follow'} {user.username}
     </button>
   );
 }
@@ -77,35 +77,32 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Profile extends React.Component {
   UNSAFE_componentWillMount() {
-    this.props.onLoad(
+    const { onLoad, match } = this.props;
+    onLoad(
       Promise.all([
-        agent.Profile.get(this.props.match.params.username),
-        agent.Articles.byAuthor(this.props.match.params.username),
+        agent.Profile.get(match.params.username),
+        agent.Articles.byAuthor(match.params.username),
       ]),
     );
   }
 
   componentWillUnmount() {
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.onUnload();
   }
 
   renderTabs() {
+    const { profile } = this.props;
     return (
       <ul className="nav nav-pills outline-active">
         <li className="nav-item">
-          <Link
-            className="nav-link active"
-            to={`/@${this.props.profile.username}`}
-          >
+          <Link className="nav-link active" to={`/@${profile.username}`}>
             My Articles
           </Link>
         </li>
 
         <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={`/@${this.props.profile.username}/favorites`}
-          >
+          <Link className="nav-link" to={`/@${profile.username}/favorites`}>
             Favorited Articles
           </Link>
         </li>
@@ -114,14 +111,13 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { profile } = this.props;
+    const { profile, currentUser, onFollow, onUnfollow } = this.props;
+    const { pager, articles, articlesCount, currentPage } = this.props;
     if (!profile) {
       return null;
     }
 
-    const isUser =
-      this.props.currentUser &&
-      this.props.profile.username === this.props.currentUser.username;
+    const isUser = currentUser && profile.username === currentUser.username;
 
     return (
       <div className="profile-page">
@@ -141,8 +137,8 @@ class Profile extends React.Component {
                 <FollowUserButton
                   isUser={isUser}
                   user={profile}
-                  follow={this.props.onFollow}
-                  unfollow={this.props.onUnfollow}
+                  follow={onFollow}
+                  unfollow={onUnfollow}
                 />
               </div>
             </div>
@@ -155,10 +151,10 @@ class Profile extends React.Component {
               <div className="articles-toggle">{this.renderTabs()}</div>
 
               <ArticleList
-                pager={this.props.pager}
-                articles={this.props.articles}
-                articlesCount={this.props.articlesCount}
-                state={this.props.currentPage}
+                pager={pager}
+                articles={articles}
+                articlesCount={articlesCount}
+                state={currentPage}
               />
             </div>
           </div>
