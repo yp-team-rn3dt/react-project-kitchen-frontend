@@ -1,0 +1,23 @@
+.banner {
+    padding: 32px 16px;
+    margin-bottom: 32px;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 700;
+    color: var(--text-primary-color);
+    text-align: center;
+    background: var(--background-primary-color);
+    box-shadow: inset 0px -1px 0px #2F2F37;
+}
+
+.logoFont {
+    margin-bottom: 8px;
+    font-size: 64px;
+    line-height: 64px;
+    text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+.subTitle {
+    margin: 0;
+    font-size: 24px;
+    line-height: 28px;
+}

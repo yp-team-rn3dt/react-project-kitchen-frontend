@@ -10,9 +10,6 @@
     --accent-color: #4C4CFF;
 }
 
-.logo-font {
-    font-family: titillium web, sans-serif;
-}
 html {
     position: relative;
     min-height: 100vh;
@@ -6134,12 +6131,14 @@ footer .attribution {
     color: #b85c5c !important;
     font-weight: 700;
 }
+
 .banner {
     color: #fff;
     background: #333;
     padding: 2rem;
     margin-bottom: 2rem;
 }
+
 .banner h1 {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     margin-bottom: 0;
