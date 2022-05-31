@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Banner from './Banner/Banner';
 import MainView from './MainView';
-import Tags from './Tags';
+import Tags from './Tags/Tags';
 import agent from '../../agent';
 import {
   HOME_PAGE_LOADED,
