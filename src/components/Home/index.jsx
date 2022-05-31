@@ -9,6 +9,7 @@ import {
   HOME_PAGE_UNLOADED,
   APPLY_TAG_FILTER,
 } from '../../constants/actionTypes';
+import styles from './index.module.css';
 
 const { Promise } = global;
 
@@ -64,11 +65,11 @@ class Home extends React.Component {
             <MainView />
 
             <div className="col-md-3">
-              <div className="sidebar">
-                <p>Popular Tags</p>
+              <section className={styles.sidebar}>
+                <p>Популярные теги</p>
 
                 <Tags tags={tags} onClickTag={onClickTag} />
-              </div>
+              </section>
             </div>
           </div>
         </div>

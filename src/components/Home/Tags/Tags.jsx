@@ -1,10 +1,11 @@
 import React from 'react';
 import agent from '../../../agent';
+import styles from './Tags.module.css';
 
 function Tags({ tags, onClickTag }) {
   if (tags) {
     return (
-      <div className="tag-list">
+      <section className={styles.tagList}>
         {tags.map((tag) => {
           const handleClick = (ev) => {
             ev.preventDefault();
@@ -17,7 +18,7 @@ function Tags({ tags, onClickTag }) {
 
           return (
             <button
-              className="tag-default tag-pill"
+              className={styles.tag}
               key={tag}
               onClick={handleClick}
               type="button"
@@ -26,10 +27,10 @@ function Tags({ tags, onClickTag }) {
             </button>
           );
         })}
-      </div>
+      </section>
     );
   }
-  return <div>Loading Tags...</div>;
+  return <section>Загрузка...</section>;
 }
 
 export default Tags;
