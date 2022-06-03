@@ -2,7 +2,7 @@ import React from 'react';
 import ArticlePreview from './ArticlePreview';
 import ListPagination from './ListPagination';
 
-function ArticleList({ articles, pager, articlesCount, currentPage }) {
+const ArticleList = ({ articles, pager, articlesCount, currentPage }) => {
   if (!articles) {
     return <div className="article-preview">Loading...</div>;
   }
@@ -24,6 +24,6 @@ function ArticleList({ articles, pager, articlesCount, currentPage }) {
       />
     </div>
   );
-}
+};
 
 export default ArticleList;

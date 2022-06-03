@@ -8,7 +8,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch({ type: DELETE_COMMENT, payload, commentId }),
 });
 
-function DeleteButton({ slug, commentId, onClick, show }) {
+const DeleteButton = ({ slug, commentId, onClick, show }) => {
   const del = () => {
     const payload = agent.Comments.delete(slug, commentId);
     onClick(payload, commentId);
@@ -28,6 +28,6 @@ function DeleteButton({ slug, commentId, onClick, show }) {
     );
   }
   return null;
-}
+};
 
 export default connect(() => ({}), mapDispatchToProps)(DeleteButton);

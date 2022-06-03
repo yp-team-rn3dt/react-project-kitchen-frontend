@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function LoggedOutView({ currentUser }) {
+const LoggedOutView = ({ currentUser }) => {
   if (!currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
@@ -26,9 +26,9 @@ function LoggedOutView({ currentUser }) {
     );
   }
   return null;
-}
+};
 
-function LoggedInView({ currentUser }) {
+const LoggedInView = ({ currentUser }) => {
   if (currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
@@ -65,22 +65,20 @@ function LoggedInView({ currentUser }) {
   }
 
   return null;
-}
+};
 
-function Header({ appName, currentUser }) {
-  return (
-    <nav className="navbar navbar-light">
-      <div className="container">
-        <Link to="/" className="navbar-brand">
-          {appName.toLowerCase()}
-        </Link>
+const Header = ({ appName, currentUser }) => (
+  <nav className="navbar navbar-light">
+    <div className="container">
+      <Link to="/" className="navbar-brand">
+        {appName.toLowerCase()}
+      </Link>
 
-        <LoggedOutView currentUser={currentUser} />
+      <LoggedOutView currentUser={currentUser} />
 
-        <LoggedInView currentUser={currentUser} />
-      </div>
-    </nav>
-  );
-}
+      <LoggedInView currentUser={currentUser} />
+    </div>
+  </nav>
+);
 
 export default Header;

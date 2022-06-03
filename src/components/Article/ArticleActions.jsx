@@ -8,7 +8,7 @@ const mapDispatchToProps = (dispatch) => ({
   onClickDelete: (payload) => dispatch({ type: DELETE_ARTICLE, payload }),
 });
 
-function ArticleActions({ article, onClickDelete, canModify }) {
+const ArticleActions = ({ article, onClickDelete, canModify }) => {
   const del = () => {
     onClickDelete(agent.Articles.del(article.slug));
   };
@@ -34,6 +34,6 @@ function ArticleActions({ article, onClickDelete, canModify }) {
   }
 
   return <span />;
-}
+};
 
 export default connect(() => ({}), mapDispatchToProps)(ArticleActions);

@@ -1,0 +1,9 @@
+ul {
+    padding: 0 0 0 18px;
+    margin: 0;
+    list-style: none;
+}
+.errorMessage {
+    margin-top: 4px;
+    color: var(--alert-color);
+}

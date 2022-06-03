@@ -1,7 +1,7 @@
 import React from 'react';
 import agent from '../../agent';
 
-function Tags({ tags, onClickTag }) {
+const Tags = ({ tags, onClickTag }) => {
   if (tags) {
     return (
       <div className="tag-list">
@@ -30,6 +30,6 @@ function Tags({ tags, onClickTag }) {
     );
   }
   return <div>Loading Tags...</div>;
-}
+};
 
 export default Tags;

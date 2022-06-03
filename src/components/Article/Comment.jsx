@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import DeleteButton from './DeleteButton';
 
-function Comment({ comment, currentUser, slug }) {
+const Comment = ({ comment, currentUser, slug }) => {
   const show = currentUser && currentUser.username === comment.author.username;
   return (
     <div className="card">
@@ -28,6 +28,6 @@ function Comment({ comment, currentUser, slug }) {
       </div>
     </div>
   );
-}
+};
 
 export default Comment;

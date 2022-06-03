@@ -4,7 +4,7 @@ import ArticleList from '../ArticleList';
 import agent from '../../agent';
 import { CHANGE_TAB } from '../../constants/actionTypes';
 
-function YourFeedTab({ token, tab, onTabClick }) {
+const YourFeedTab = ({ token, tab, onTabClick }) => {
   if (token) {
     const clickHandler = (ev) => {
       ev.preventDefault();
@@ -24,9 +24,9 @@ function YourFeedTab({ token, tab, onTabClick }) {
     );
   }
   return null;
-}
+};
 
-function GlobalFeedTab({ tab, onTabClick }) {
+const GlobalFeedTab = ({ tab, onTabClick }) => {
   const clickHandler = (ev) => {
     ev.preventDefault();
     onTabClick('all', agent.Articles.all, agent.Articles.all());
@@ -42,9 +42,9 @@ function GlobalFeedTab({ tab, onTabClick }) {
       </button>
     </li>
   );
-}
+};
 
-function TagFilterTab({ tag }) {
+const TagFilterTab = ({ tag }) => {
   if (!tag) {
     return null;
   }
@@ -56,7 +56,7 @@ function TagFilterTab({ tag }) {
       </button>
     </li>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   ...state.articleList,
@@ -74,7 +74,7 @@ const mapDispatchToProps = (dispatch) => ({
     }),
 });
 
-function MainView({
+const MainView = ({
   token,
   tab,
   tag,
@@ -84,28 +84,26 @@ function MainView({
   loading,
   articlesCount,
   currentPage,
-}) {
-  return (
-    <div className="col-md-9">
-      <div className="feed-toggle">
-        <ul className="nav nav-pills outline-active">
-          <YourFeedTab token={token} tab={tab} onTabClick={onTabClick} />
+}) => (
+  <div className="col-md-9">
+    <div className="feed-toggle">
+      <ul className="nav nav-pills outline-active">
+        <YourFeedTab token={token} tab={tab} onTabClick={onTabClick} />
 
-          <GlobalFeedTab tab={tab} onTabClick={onTabClick} />
+        <GlobalFeedTab tab={tab} onTabClick={onTabClick} />
 
-          <TagFilterTab tag={tag} />
-        </ul>
-      </div>
-
-      <ArticleList
-        pager={pager}
-        articles={articles}
-        loading={loading}
-        articlesCount={articlesCount}
-        currentPage={currentPage}
-      />
+        <TagFilterTab tag={tag} />
+      </ul>
     </div>
-  );
-}
+
+    <ArticleList
+      pager={pager}
+      articles={articles}
+      loading={loading}
+      articlesCount={articlesCount}
+      currentPage={currentPage}
+    />
+  </div>
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainView);

@@ -10,7 +10,7 @@ import {
   PROFILE_PAGE_UNLOADED,
 } from '../constants/actionTypes';
 
-function EditProfileSettings({ isUser }) {
+const EditProfileSettings = ({ isUser }) => {
   if (isUser) {
     return (
       <Link
@@ -22,9 +22,9 @@ function EditProfileSettings({ isUser }) {
     );
   }
   return null;
-}
+};
 
-function FollowUserButton({ isUser, user, follow, unfollow }) {
+const FollowUserButton = ({ isUser, user, follow, unfollow }) => {
   if (isUser) {
     return null;
   }
@@ -52,7 +52,7 @@ function FollowUserButton({ isUser, user, follow, unfollow }) {
       {user.following ? 'Unfollow' : 'Follow'} {user.username}
     </button>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   ...state.articleList,

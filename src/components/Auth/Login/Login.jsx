@@ -1,13 +1,18 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import ListErrors from '../../ListErrors';
+import cn from 'classnames';
+import ListErrors from '../../ListErrors/ListErrors';
 import agent from '../../../agent';
 import {
   UPDATE_FIELD_AUTH,
   LOGIN,
   LOGIN_PAGE_UNLOADED,
 } from '../../../constants/actionTypes';
+import styles from './Login.module.css';
+import IconAlert from '../../Icons/IconAlert';
+import IconEye from '../../Icons/IconEye';
+import IconEyeOff from '../../Icons/IconEyeOff';
 
 const mapStateToProps = (state) => ({ ...state.auth });
 
@@ -30,6 +35,7 @@ const Login = ({
   onChangeEmail,
   onChangePassword,
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
   const changeEmail = (ev) => {
     onChangeEmail(ev.target.value);
   };
@@ -43,52 +49,77 @@ const Login = ({
     onSubmit(email, password);
   };
 
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const showIconEye = () =>
+    showPassword ? (
+      <IconEye onClick={handleShowPassword} className={styles.iconEye} />
+    ) : (
+      <IconEyeOff onClick={handleShowPassword} className={styles.iconEye} />
+    );
+
   return (
     <div className="auth-page">
       <div className="container page">
         <div className="row">
           <div className="col-md-6 offset-md-3 col-xs-12">
-            <h1 className="text-xs-center">Войти</h1>
-            <p className="text-xs-center">
-              <Link to="/register">Хотите создать аккаунт?</Link>
+            <h1 className={styles.heading}>Войти</h1>
+            <p className={styles.textXsCenter}>
+              <Link className={styles.text} to="/register">
+                Хотите создать аккаунт?
+              </Link>
             </p>
 
-            <ListErrors errors={errors} />
-
-            <form onSubmit={submitForm(email, password)}>
-              <fieldset>
-                <fieldset className="form-group">
-                  <label htmlFor="email">
-                    Email
-                    <input
-                      id="email"
-                      className="form-control form-control-lg"
-                      type="email"
-                      placeholder="Email"
-                      value={email}
-                      onChange={changeEmail}
-                    />
-                  </label>
-                </fieldset>
-
-                <fieldset className="form-group">
+            <form
+              className={styles.form}
+              onSubmit={submitForm(email, password)}
+            >
+              <label className={styles.label} htmlFor="email">
+                E-mail
+                <div className={styles.inputWrapper}>
                   <input
-                    className="form-control form-control-lg"
-                    type="password"
-                    placeholder="Password"
+                    className={cn(styles.input, errors?.email && styles.error)}
+                    id="email"
+                    type="email"
+                    placeholder="E-mail"
+                    value={email}
+                    onChange={changeEmail}
+                  />
+                  {errors?.email && <IconAlert className={styles.icon} />}
+                </div>
+                {errors?.email && <ListErrors errors={errors} />}
+              </label>
+              <label className={styles.label} htmlFor="password">
+                Пароль
+                <div className={styles.inputWrapper}>
+                  <input
+                    className={cn(
+                      styles.input,
+                      errors?.password && styles.error,
+                    )}
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Пароль"
                     value={password}
                     onChange={changePassword}
                   />
-                </fieldset>
-
-                <button
-                  className="btn btn-lg btn-primary pull-xs-right"
-                  type="submit"
-                  disabled={inProgress}
-                >
-                  Sign in
-                </button>
-              </fieldset>
+                  {errors?.password ? (
+                    <IconAlert className={styles.icon} />
+                  ) : (
+                    showIconEye()
+                  )}
+                </div>
+                {errors?.password && <ListErrors errors={errors} />}
+              </label>
+              <button
+                className={styles.button}
+                type="submit"
+                disabled={inProgress}
+              >
+                Войти
+              </button>
             </form>
           </div>
         </div>

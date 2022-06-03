@@ -3,7 +3,7 @@ import React from 'react';
 import CommentInput from './CommentInput';
 import CommentList from './CommentList';
 
-function CommentContainer({ currentUser, errors, slug, comments }) {
+const CommentContainer = ({ currentUser, errors, slug, comments }) => {
   if (currentUser) {
     return (
       <div className="col-xs-12 col-md-8 offset-md-2">
@@ -32,6 +32,6 @@ function CommentContainer({ currentUser, errors, slug, comments }) {
       <CommentList comments={comments} slug={slug} currentUser={currentUser} />
     </div>
   );
-}
+};
 
 export default CommentContainer;
