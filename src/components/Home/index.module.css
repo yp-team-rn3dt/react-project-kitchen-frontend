@@ -1,0 +1,7 @@
+.sidebar {
+    padding: 16px;
+    font: var(--text-font);
+    color: var(--text-primary-color);
+    background-color: var(--background-secondary-color);
+    border-radius: 20px;
+}
