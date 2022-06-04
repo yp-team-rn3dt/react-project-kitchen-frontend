@@ -7,7 +7,7 @@ const mapDispatchToProps = (dispatch) => ({
   onSetPage: (page, payload) => dispatch({ type: SET_PAGE, page, payload }),
 });
 
-function ListPagination({ articlesCount, pager, onSetPage, currentPage }) {
+const ListPagination = ({ articlesCount, pager, onSetPage, currentPage }) => {
   if (articlesCount <= 10) {
     return null;
   }
@@ -53,6 +53,6 @@ function ListPagination({ articlesCount, pager, onSetPage, currentPage }) {
       </ul>
     </nav>
   );
-}
+};
 
 export default connect(() => ({}), mapDispatchToProps)(ListPagination);

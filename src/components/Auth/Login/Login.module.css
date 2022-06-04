@@ -1,0 +1,82 @@
+.textXsCenter {
+    text-align: center;
+}
+
+.heading {
+    composes: textXsCenter;
+    margin-bottom: 40px;
+    color: var(--text-primary-color);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 36px;
+    line-height: 40px;
+    font-weight: 700;
+}
+
+.text {
+    composes: textXsCenter;
+    color: var(--accent-color);
+    font-size: 16px;
+    line-height: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    width: 100%;
+    color: var(--text-primary-color);
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 12px;
+}
+
+.input {
+    padding: 8px 16px;
+    width: 100%;
+    color: var(--text-secondary-color);
+    font-size: 16px;
+    line-height: 24px;
+    background-color: var(--background-element-color);
+    border-radius: 20px;
+    border: none;
+}
+
+.input::placeholder {
+    color: var(--text-secondary-color);
+}
+
+.error {
+    border: 2px solid var(--alert-color);
+}
+
+.inputWrapper {
+    position: relative;
+    margin-top: 4px;
+}
+
+.icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.iconEye {
+    composes: icon;
+    cursor: pointer;
+}
+
+.button {
+    margin-top: 40px;
+    padding: 8px 36px;
+    width: 120px;
+    align-self: flex-end;
+    background-color: var(--accent-color);
+    border-radius: 20px;
+    border: none;
+    color: var(--text-primary-color);
+}

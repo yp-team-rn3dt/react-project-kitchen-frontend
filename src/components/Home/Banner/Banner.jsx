@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Banner.module.css';
 
-function Banner({ appName, token }) {
+const Banner = ({ appName, token }) => {
   if (token) {
     return null;
   }
@@ -13,6 +13,6 @@ function Banner({ appName, token }) {
       </div>
     </div>
   );
-}
+};
 
 export default Banner;

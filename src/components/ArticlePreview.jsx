@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
     }),
 });
 
-function ArticlePreview({ article, unfavorite, favorite }) {
+const ArticlePreview = ({ article, unfavorite, favorite }) => {
   const favoriteButtonClass = article.favorited
     ? FAVORITED_CLASS
     : NOT_FAVORITED_CLASS;
@@ -78,6 +78,6 @@ function ArticlePreview({ article, unfavorite, favorite }) {
       </Link>
     </div>
   );
-}
+};
 
 export default connect(() => ({}), mapDispatchToProps)(ArticlePreview);

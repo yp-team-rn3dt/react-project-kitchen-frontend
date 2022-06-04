@@ -7,7 +7,7 @@ const mapStateToProps = (state) => ({
   currentTag: state.articleList.tag,
 });
 
-function Tags({ tags, onClickTag, currentTag }) {
+const Tags = ({ tags, onClickTag, currentTag }) => {
   const handleClick = (ev, tag) => {
     ev.preventDefault();
     onClickTag(
@@ -37,6 +37,6 @@ function Tags({ tags, onClickTag, currentTag }) {
     );
   }
   return <section>Загрузка...</section>;
-}
+};
 
 export default connect(mapStateToProps)(Tags);

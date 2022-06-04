@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ListErrors from './ListErrors';
+import ListErrors from './ListErrors/ListErrors';
 import agent from '../agent';
 import {
   ADD_TAG,
