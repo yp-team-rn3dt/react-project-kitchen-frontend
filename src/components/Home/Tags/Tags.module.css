@@ -23,3 +23,7 @@
     background: var(--accent-color);
     border: none;
 }
+
+.active {
+    background: var(--accent-color);
+}

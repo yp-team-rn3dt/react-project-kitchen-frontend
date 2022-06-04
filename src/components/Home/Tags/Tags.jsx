@@ -1,8 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import agent from '../../../agent';
 import styles from './Tags.module.css';
 
-function Tags({ tags, onClickTag }) {
+const mapStateToProps = (state) => ({
+  currentTag: state.articleList.tag,
+});
+
+function Tags({ tags, onClickTag, currentTag }) {
   const handleClick = (ev, tag) => {
     ev.preventDefault();
     onClickTag(
@@ -11,12 +16,16 @@ function Tags({ tags, onClickTag }) {
       agent.Articles.byTag(tag),
     );
   };
+
+  const className = (tag) =>
+    `${styles.tag} ${currentTag === tag ? styles.active : ''} `;
+
   if (tags) {
     return (
       <section className={styles.tagList}>
         {tags.map((tag) => (
           <button
-            className={styles.tag}
+            className={className(tag)}
             key={tag}
             onClick={(e) => handleClick(e, tag)}
             type="button"
@@ -30,4 +39,4 @@ function Tags({ tags, onClickTag }) {
   return <section>Загрузка...</section>;
 }
 
-export default Tags;
+export default connect(mapStateToProps)(Tags);
