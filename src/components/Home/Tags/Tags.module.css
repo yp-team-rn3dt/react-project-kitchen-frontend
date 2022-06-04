@@ -1,0 +1,29 @@
+.tagList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.tag {
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: 4px 8px;
+    font: var(--caption-font);
+    word-wrap: break-word;
+    color: var(--text-primary-color);
+    background: var(--background-element-color);
+    border-radius: 10rem;
+    border: none;
+}
+
+.tag:hover,
+.tag:focus {
+    text-decoration: none;
+    background: var(--accent-color);
+    border: none;
+}
+
+.active {
+    background: var(--accent-color);
+}
