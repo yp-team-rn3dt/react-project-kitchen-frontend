@@ -1,0 +1,20 @@
+.navbarNav {
+    display: flex;
+    column-gap: 35px;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    column-gap: 11px;
+}
+
+.navLinkActive, .navLinkActive:hover, .navLinkActive:focus {
+    color: var(--text-primary-color);
+}
+
+
+.navLink, .navLink:hover, .navLink:focus {
+    color: var(--text-secondary-color);
+}
+
