@@ -1,7 +1,18 @@
-.sidebar {
-    padding: 16px;
+.container {
+    display: grid;
+    box-sizing: border-box;
+    margin: auto auto;
+    padding: 0 15px;
+    max-width: 1140px;
+    gap: 32px;
+    grid-template-columns: 9fr 3fr;
     font: var(--text-font);
     color: var(--text-primary-color);
-    background-color: var(--background-secondary-color);
-    border-radius: 20px;
+    
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: none;
+    }
 }

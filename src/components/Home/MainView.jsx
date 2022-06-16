@@ -85,7 +85,7 @@ const MainView = ({
   articlesCount,
   currentPage,
 }) => (
-  <div className="col-md-9">
+  <div>
     <div className="feed-toggle">
       <ul className="nav nav-pills outline-active">
         <YourFeedTab token={token} tab={tab} onTabClick={onTabClick} />

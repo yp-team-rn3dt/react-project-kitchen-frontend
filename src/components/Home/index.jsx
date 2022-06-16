@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Banner from './Banner/Banner';
 import MainView from './MainView';
-import Tags from './Tags/Tags';
+import Sidebar from './Sidebar/Sidebar';
 import agent from '../../agent';
 import {
   HOME_PAGE_LOADED,
@@ -58,21 +58,14 @@ class Home extends React.Component {
   render() {
     const { token, appName, tags, onClickTag } = this.props;
     return (
-      <div className="home-page">
+      <div>
         <Banner token={token} appName={appName} />
-        <div className="container page">
-          <div className="row">
-            <MainView />
 
-            <div className="col-md-3">
-              <section className={styles.sidebar}>
-                <p>Популярные теги</p>
+        <main className={styles.container}>
+          <MainView />
 
-                <Tags tags={tags} onClickTag={onClickTag} />
-              </section>
-            </div>
-          </div>
-        </div>
+          <Sidebar tags={tags} onClickTag={onClickTag} />
+        </main>
       </div>
     );
   }
