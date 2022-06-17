@@ -8,7 +8,7 @@
     --text-disabled-color: #3A3A55;
     --alert-color: #F20D33;
     --accent-color: #4C4CFF;
-    
+
     --h1-font: normal 700 64px/64px 'Exo 2', sans-serif;
     --h2-font: normal 700 36px/40px 'Exo 2', sans-serif;
     --headline-font: normal 700 24px/28px 'Exo 2', sans-serif;
@@ -277,7 +277,7 @@ html {
     -webkit-tap-highlight-color: transparent;
 }
 body {
-    font-family: source sans pro, sans-serif;
+    font-family: "JetBrains Mono", sans-serif;
     font-size: 1rem;
     line-height: 1.5;
     color: #373a3c;
