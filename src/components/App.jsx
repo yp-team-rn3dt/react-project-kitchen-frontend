@@ -11,7 +11,7 @@ import Home from './Home';
 import Login from './Auth/Login/Login';
 import ConnectedProfile from './Profile';
 import ProfileFavorites from './ProfileFavorites';
-import Register from './Register';
+import Register from './Auth/Register/Register';
 import Settings from './Settings';
 import { store } from '../store';
 
