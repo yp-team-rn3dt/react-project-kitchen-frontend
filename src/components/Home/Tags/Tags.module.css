@@ -20,10 +20,12 @@
 .tag:hover,
 .tag:focus {
     text-decoration: none;
-    background: var(--accent-color);
+    background: rgba(77, 77, 255, 0.551);
     border: none;
 }
 
-.active {
+.active,
+.active:hover,
+.active:focus {
     background: var(--accent-color);
 }

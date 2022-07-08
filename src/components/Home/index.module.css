@@ -1,7 +1,31 @@
-.sidebar {
-    padding: 16px;
+.container {
+    display: grid;
+    box-sizing: border-box;
+    margin: auto auto;
+    padding: 0 15px;
+    gap: 32px;
     font: var(--text-font);
     color: var(--text-primary-color);
-    background-color: var(--background-secondary-color);
-    border-radius: 20px;
+}
+
+@media (min-width: 544px) {
+    .container {
+        max-width: 576px;
+    }
+}
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+        grid-template-columns: 9fr 3fr;
+    }
+}
+@media (min-width: 992px) {
+    .container {
+        max-width: 940px;
+    }
+}
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
 }
