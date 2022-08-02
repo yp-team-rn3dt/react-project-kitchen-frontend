@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import cn from 'classnames';
 
@@ -9,10 +9,9 @@ import Rn3dtButton from '../../UI/Button/Button';
 import agent from '../../../agent';
 import {
   UPDATE_FIELD_AUTH,
-  LOGIN,
-  LOGIN_PAGE_UNLOADED,
+  REGISTER,
+  REGISTER_PAGE_UNLOADED,
 } from '../../../constants/actionTypes';
-
 import IconAlert from '../../Icons/IconAlert';
 import IconEye from '../../Icons/IconEye';
 import IconEyeOff from '../../Icons/IconEyeOff';
@@ -26,21 +25,29 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
   onChangePassword: (value) =>
     dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
-  onSubmit: (email, password) =>
-    dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
-  onUnload: () => dispatch({ type: LOGIN_PAGE_UNLOADED }),
+  onChangeUsername: (value) =>
+    dispatch({ type: UPDATE_FIELD_AUTH, key: 'username', value }),
+  onSubmit: (username, email, password) => {
+    const payload = agent.Auth.register(username, email, password);
+    dispatch({ type: REGISTER, payload });
+  },
+  onUnload: () => dispatch({ type: REGISTER_PAGE_UNLOADED }),
 });
 
-const Login = ({
+const Register = ({
   email,
   password,
+  username,
   errors,
   inProgress,
-  onSubmit,
   onChangeEmail,
   onChangePassword,
+  onChangeUsername,
+  onSubmit,
+  onUnload,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+
   const changeEmail = (ev) => {
     onChangeEmail(ev.target.value);
   };
@@ -49,14 +56,26 @@ const Login = ({
     onChangePassword(ev.target.value);
   };
 
-  const submitForm = (email, password) => (ev) => {
+  const changeUsername = (ev) => {
+    onChangeUsername(ev.target.value);
+  };
+
+  const submitForm = (username, email, password) => (ev) => {
     ev.preventDefault();
-    onSubmit(email, password);
+    onSubmit(username, email, password);
   };
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  useEffect(
+    () => () => {
+      onUnload(0);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   const showIconEye = () =>
     showPassword ? (
@@ -70,17 +89,42 @@ const Login = ({
       <div className="container page">
         <div className="row">
           <div className="col-md-6 offset-md-3 col-xs-12">
-            <h1 className={cn(authStyles.heading, 'ta-center')}>Войти</h1>
+            <h1 className={cn(authStyles.heading, 'ta-center')}>
+              Зарегистрироваться
+            </h1>
             <p className="ta-center">
-              <Link className={authStyles.text} to="/register">
-                Хотите создать аккаунт?
+              <Link className={authStyles.text} to="/login">
+                Уже есть аккаунт?
               </Link>
             </p>
 
             <form
               className={authStyles.form}
-              onSubmit={submitForm(email, password)}
+              onSubmit={submitForm(username, email, password)}
             >
+              <label className={authStyles.label} htmlFor="username">
+                Имя пользователя
+                <div className={authStyles.inputWrapper}>
+                  <input
+                    className={cn(
+                      authStyles.input,
+                      errors?.username && authStyles.error,
+                    )}
+                    id="username"
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={changeUsername}
+                  />
+                  {errors?.username && (
+                    <IconAlert className={authStyles.icon} />
+                  )}
+                </div>
+                {errors?.username && (
+                  <ListErrors errors={{ username: errors.username }} />
+                )}
+              </label>
+
               <label className={authStyles.label} htmlFor="email">
                 E-mail
                 <div className={authStyles.inputWrapper}>
@@ -101,6 +145,7 @@ const Login = ({
                   <ListErrors errors={{ email: errors.email }} />
                 )}
               </label>
+
               <label className={authStyles.label} htmlFor="password">
                 Пароль
                 <div className={authStyles.inputWrapper}>
@@ -127,7 +172,7 @@ const Login = ({
               </label>
               <Rn3dtButton
                 isDisabled={inProgress}
-                text="Войти"
+                text="Зарегистрироваться"
                 onClick={() => {}}
                 type="submit"
               />
@@ -139,4 +184,4 @@ const Login = ({
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
